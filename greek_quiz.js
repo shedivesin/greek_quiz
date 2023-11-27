@@ -17,8 +17,7 @@ function shuffle(array) {
   return array;
 }
 
-// FIXME: Include various verb forms. Those should be nested, so that we only
-// get a verb once (but in a random form).
+// FIXME: Add various noun forms.
 const VOCABULARY = shuffle([
   // [["αἰγιαλός", "beach"]],
   [["αἴλουρος", "cat"]],
@@ -86,7 +85,14 @@ const VOCABULARY = shuffle([
   [["ἐκ", "out of"], ["ἐξ", "out of"]],
   [["ἔμπορος", "merchant"]],
   [["ἐν", "in"]],
-  [["ἐσθίω", "I eat"]],
+  [
+    ["ἐσθίω", "I eat"],
+    ["ἐσθίεις", "you eat"],
+    ["ἐσθίει", "he/she/it eats", "he eats", "she eats", "it eats"],
+    ["ἐσθίομεν", "we eat"],
+    ["ἐσθίετε", "y'all eat"],
+    ["ἐσθίουσι(ν)", "they eat"],
+  ],
   [
     ["ἔχω", "I have"],
     ["ἔχεις", "you have"],
@@ -101,7 +107,14 @@ const VOCABULARY = shuffle([
   [["ἵππος", "horse"]],
   [["καί", "and"]],
   [["καθ’ ἡμέρᾱν", "every day", "daily"]],
-  [["καθεύδω", "I sleep"]],
+  [
+    ["καθεύδω", "I sleep"],
+    ["καθεύδεις", "you sleep"],
+    ["καθεύδει", "he/she/it sleeps", "he sleeps", "she sleeps", "it sleeps"],
+    ["καθεύδομεν", "we sleep"],
+    ["καθεύδετε", "y'all sleep"],
+    ["καθεύδουσι(ν)", "they sleep"],
+  ],
   [["κάλαμος", "pen", "reed", "reed-pen"]],
   [["μάγειρος", "cook", "chef"]],
   [["νῦν", "now"]],
@@ -117,7 +130,14 @@ const VOCABULARY = shuffle([
   [["σπανίως", "seldom"]],
   [["στρατηγός", "general"]],
   [["σύ", "you"]],
-  [["τρέχω", "I run"]],
+  [
+    ["τρέχω", "I run"],
+    ["τρέχεις", "you run"],
+    ["τρέχει", "he/she/it runs", "he runs", "she runs", "it runs"],
+    ["τρέχομεν", "I run"],
+    ["τρέχετε", "I run"],
+    ["τρέχουσι(ν)", "I run"],
+  ],
   [["τῡρός", "cheese"]],
   [["υἱός", "son"]],
   [["ὑμεῖς", "y'all"]],
