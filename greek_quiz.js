@@ -29,6 +29,14 @@ const VOCABULARY = shuffle([
     ["ἀγοράζουσι(ν)", "they buy"],
   ],
   // [["ἀγρός", "field"]],
+  [
+    ["ἄγω", "I lead"],
+    ["ἄγεις", "you lead"],
+    ["ἄγει", "he/she/it leads", "he leads", "she leads", "it leads"],
+    ["ἄγομεν", "we lead"],
+    ["ἄγετε", "y'all lead"],
+    ["ἄγουσι(ν)", "they lead"],
+  ],
   // [["ἀδελφός", "brother"]],
   [
     ["ἀναγιγνώσκω", "I read"],
@@ -42,6 +50,7 @@ const VOCABULARY = shuffle([
   // [["ἄργυρος", "silver"]],
   [["ἄρτος", "bread"]],
   // [["βαδίζω", "I walk"]],
+  [["βοῦς", "cow"]],
   [["βούτῡρος", "butter"]],
   [["γεωργός", "farmer"]],
   [
@@ -117,7 +126,7 @@ const VOCABULARY = shuffle([
   [["κάλαμος", "pen", "reed", "reed-pen"]],
   [["μάγειρος", "cook", "chef"]],
   [["νῦν", "now"]],
-  [["ὁ", "the"]],
+  [["ὁ", "the"], ["οἱ", "the"]],
   [["οἶκος", "house"]],
   [["ὅτι", "because"]],
   [["οὐ", "not"], ["οὐκ", "not"], ["οὐχ", "not"]],
@@ -127,7 +136,8 @@ const VOCABULARY = shuffle([
   [["ποταμός", "river"]],
   [["πρός", "to/towards", "to", "towards"]],
   [["σπανίως", "seldom"]],
-  [["στρατηγός", "general"]],
+  [["στρατός", "army"]],
+  [["στρατηγός", "general", "army-leader"]],
   [["σύ", "you"]],
   [
     ["τρέχω", "I run"],
