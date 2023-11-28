@@ -1,7 +1,7 @@
 const readline = require("node:readline/promises");
 
 
-const QUESTIONS = 10;
+const QUESTIONS = 20;
 
 
 function shuffle(array) {
