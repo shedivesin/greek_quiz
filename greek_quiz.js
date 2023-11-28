@@ -2,7 +2,6 @@ const readline = require("node:readline/promises");
 
 
 const QUESTIONS = 10;
-const NUMBER_WIDTH = Math.floor(Math.log10(QUESTIONS)) + 1;
 
 
 function shuffle(array) {
@@ -158,19 +157,20 @@ async function main() {
     output: process.stdout,
   });
   const n = Math.min(QUESTIONS, VOCABULARY.length);
+  const width = Math.floor(Math.log10(n)) + 1;
   let correct = 0;
 
   for(let i = 0; i < n; i++) {
     const [question, ...answers] = random(VOCABULARY[i]);
-    console.log("%s. %s", (i + 1).toString().padStart(NUMBER_WIDTH), question);
+    console.log("%s. %s", (i + 1).toString().padStart(width), question);
 
-    const test = await rl.question("> ".padStart(NUMBER_WIDTH + 2));
+    const test = await rl.question("> ".padStart(width + 2));
     if(answers.includes(test)) {
       correct++;
-      console.log("%s\n", "✓".padStart(NUMBER_WIDTH + 1));
+      console.log("%s\033[1;32m✓\033[0m\n", " ".repeat(width));
     }
     else {
-      console.log("%s %s\n", "✗".padStart(NUMBER_WIDTH + 1), answers[0]);
+      console.log("%s\033[1;31m✗\033[0m %s\n", " ".repeat(width), answers[0]);
     }
   }
 
