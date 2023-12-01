@@ -17,13 +17,23 @@ function shuffle(array) {
 }
 
 const ENDINGS = shuffle([
-  // Second declension masculine nouns
+  // second declension masculine nouns
   ["-ος", "nom", "sin"],
   ["-οι", "nom", "plu"],
   ["-ου", "gen", "sin"],
   ["-ων", "gen", "plu"],
   ["-ον", "acc", "sin"],
   ["-ους", "acc", "plu"],
+  ["-ῳ", "dat", "sin"],
+  ["-οις", "dat", "plu"],
+
+  // present indicative active verbs
+  ["-ω", "fir", "sin"],
+  ["-ομεν", "fir", "plu"],
+  ["-εις", "sec", "sin"],
+  ["-ετε", "sec", "plu"],
+  ["-ει", "thi", "sin"],
+  ["-ουσι(ν)", "thi", "plu"],
 ]);
 
 async function main() {
