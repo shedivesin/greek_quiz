@@ -5,3 +5,4 @@ vocabulary.
 The vocabulary is from:
 
 *   William Linney, _[Getting Started with Ancient Greek](http://www.gettingstartedwithancientgreek.com)._
+*   C. W. E. Peckett and A. R. Murray, _Thrasymachus._

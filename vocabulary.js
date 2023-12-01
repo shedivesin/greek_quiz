@@ -98,6 +98,8 @@ const VOCABULARY = shuffle([
   [["ἄνθρωπος", "man", "human", "human being"]],
   [["ἐρίζω", "I quarrel"]],
   [["ἱμάτιον", "cloak", "garment"]],
+  [["θάλαττα", "sea"]],
+  [["θεός", "god"]],
   [["κρείσσων", "stronger", "mightier"]],
   [["ὁπότερος", "which"]],
   [["μάτην", "in vain"]],
