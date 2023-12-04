@@ -103,6 +103,17 @@ const VOCABULARY = [
   ["χαίρω", "I rejoice"],
 ];
 const ENDINGS = [
+  // First declension
+  ["φωνή", "nominative singular", "nom sing"],
+  ["φωνήν", "accusative singular", "acc sing"],
+  ["φωνῆς", "genitive singular", "gen sing"],
+  ["φωνῇ", "dative singular", "dat sing"],
+  ["φωναί", "nominative plural", "nom plu"],
+  ["φωνάς", "accusative plural", "acc plu"],
+  ["φωνῶν", "genitive plural", "gen plu"],
+  ["φωναῖς", "dative plural", "dat plu"],
+
+  // Second declension masculine
   ["θεός", "nominative singular", "nom sing"],
   ["θεόν", "accusative singular", "acc sing"],
   ["θεοῦ", "genitive singular", "gen sing"],
