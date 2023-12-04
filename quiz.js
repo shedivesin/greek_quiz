@@ -142,6 +142,8 @@ function shuffle(array) {
 }
 
 async function quiz(source, questions) {
+  if(questions > source.length) { questions = source.length; }
+
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
