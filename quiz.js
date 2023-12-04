@@ -104,20 +104,22 @@ const VOCABULARY = [
 ];
 const ENDINGS = [
   // First declension
-  ["φωνή", "nominative singular", "nom sing"],
-  ["φωνήν", "accusative singular", "acc sing"],
-  ["φωνῆς", "genitive singular", "gen sing"],
-  ["φωνῇ", "dative singular", "dat sing"],
+  /*
+  ["φωνή", "nominative singular", "nom sin", "nom sing"],
+  ["φωνήν", "accusative singular", "acc sin", "acc sing"],
+  ["φωνῆς", "genitive singular", "gen sin", "gen sing"],
+  ["φωνῇ", "dative singular", "dat sin", "dat sing"],
   ["φωναί", "nominative plural", "nom plu"],
   ["φωνάς", "accusative plural", "acc plu"],
   ["φωνῶν", "genitive plural", "gen plu"],
   ["φωναῖς", "dative plural", "dat plu"],
+  */
 
   // Second declension masculine
-  ["θεός", "nominative singular", "nom sing"],
-  ["θεόν", "accusative singular", "acc sing"],
-  ["θεοῦ", "genitive singular", "gen sing"],
-  ["θεῷ", "dative singular", "dat sing"],
+  ["θεός", "nominative singular", "nom sin", "nom sing"],
+  ["θεόν", "accusative singular", "acc sin", "acc sing"],
+  ["θεοῦ", "genitive singular", "gen sin", "gen sing"],
+  ["θεῷ", "dative singular", "dat sin", "dat sing"],
   ["θεοί", "nominative plural", "nom plu"],
   ["θεούς", "accusative plural", "acc plu"],
   ["θεῶν", "genitive plural", "gen plu"],
