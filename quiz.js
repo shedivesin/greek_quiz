@@ -70,6 +70,7 @@ const VOCABULARY = [
 
   // C. W. E. Peckett and A. R. Munday, Thrasymachus.
   // I
+  /*
   ["ἀκούω", "I hear"],
   ["ἀλλά", "but"],
   ["ἄνθρωπος", "man", "human"],
@@ -101,80 +102,87 @@ const VOCABULARY = [
   ["τίς/τί", "who?"],
   ["φωνή", "voice"],
   ["χαίρω", "I rejoice"],
+  */
 ];
 const ENDINGS = [
   // First declension
-  /*
-  ["φωνή", "nominative singular", "nom sin", "nom sing"],
-  ["φωνήν", "accusative singular", "acc sin", "acc sing"],
-  ["φωνῆς", "genitive singular", "gen sin", "gen sing"],
-  ["φωνῇ", "dative singular", "dat sin", "dat sing"],
-  ["φωναί", "nominative plural", "nom plu"],
-  ["φωνάς", "accusative plural", "acc plu"],
-  ["φωνῶν", "genitive plural", "gen plu"],
-  ["φωναῖς", "dative plural", "dat plu"],
-  */
+  ["φωνή", "nominative singular", "nom sin", "nom sing", "ns"],
+  ["φωνήν", "accusative singular", "acc sin", "acc sing", "as"],
+  ["φωνῆς", "genitive singular", "gen sin", "gen sing", "gs"],
+  ["φωνῇ", "dative singular", "dat sin", "dat sing", "ds"],
+  ["φωναί", "nominative plural", "nom plu", "np"],
+  ["φωνάς", "accusative plural", "acc plu", "ap"],
+  ["φωνῶν", "genitive plural", "gen plu", "gp"],
+  ["φωναῖς", "dative plural", "dat plu", "dp"],
 
   // Second declension masculine
-  ["θεός", "nominative singular", "nom sin", "nom sing"],
-  ["θεόν", "accusative singular", "acc sin", "acc sing"],
-  ["θεοῦ", "genitive singular", "gen sin", "gen sing"],
-  ["θεῷ", "dative singular", "dat sin", "dat sing"],
-  ["θεοί", "nominative plural", "nom plu"],
-  ["θεούς", "accusative plural", "acc plu"],
-  ["θεῶν", "genitive plural", "gen plu"],
-  ["θεοῖς", "dative plural", "dat plu"],
+  ["θεός", "nominative singular", "nom sing", "nom sin", "ns"],
+  ["θεόν", "accusative singular", "acc sing", "acc sin", "as"],
+  ["θεοῦ", "genitive singular", "gen sing", "gen sin", "gs"],
+  ["θεῷ", "dative singular", "dat sing", "dat sin", "ds"],
+  ["θεοί", "nominative plural", "nom plu", "np"],
+  ["θεούς", "accusative plural", "acc plu", "ap"],
+  ["θεῶν", "genitive plural", "gen plu", "gp"],
+  ["θεοῖς", "dative plural", "dat plu", "dp"],
+
+  // Second declension neuter
+  ["παιδίον", "nominative/accusative singular", "nominative singular", "nom sing", "nom sin", "ns", "accusative singular", "acc sing", "acc sin", "as"],
+  ["παιδίου", "genitive singular", "gen sing", "gen sin", "gs"],
+  ["παιδίῷ", "dative singular", "dat sing", "dat sin", "ds"],
+  ["παιδία", "nominative/accusative plural", "nominative plural", "nom plu", "np", "accusative plural", "acc plu", "ap"],
+  ["παιδίων", "genitive plural", "gen plu", "gp"],
+  ["παιδίοις", "dative plural", "dat plu", "dp"],
 ];
 const MIN_QUESTIONS = 20;
 
 
-function shuffle(array) {
-  for(let i = 0; i < array.length - 1; i++) {
-    const j = i + Math.floor((array.length - i) * Math.random());
-    if(i === j) { continue; }
-
-    const t = array[i];
-    array[i] = array[j];
-    array[j] = t;
-  }
-
-  return array;
-}
-
-async function quiz(source, questions) {
-  if(questions > source.length) { questions = source.length; }
-
+async function quiz(list, length) {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
   });
-  let n = 0;
 
-  for(let list = shuffle(source.slice()).slice(0, questions); list.length !== 0; ) {
-    const next = [];
+  // Build a list of N random questions.
+  const questions = new Array(length);
+  for(let i = 0; i < length; i++) {
+    questions[i] = list[Math.floor(list.length * Math.random())];
+  }
 
-    for(const entry of list) {
-      const [question, ...answers] = entry;
-      console.log("%s. %s", (++n).toString().padStart(3), question);
+  const start = process.hrtime();
+  let mistakes = 0;
 
-      const test = await rl.question("   > ");
-      if(answers.includes(test)) {
-        console.log("   \033[1;32m✓\033[0m\n");
-      }
-      else {
-        console.log("   \033[1;31m✗\033[0m %s\n", answers[0]);
-        next.push(entry);
-      }
+  for(let i = 0; i < length; ) {
+    const [question, ...answers] = questions[i];
+    console.log("%s. %s", (i + mistakes + 1).toString().padStart(3), question);
+
+    const test = await rl.question("   > ");
+
+    if(answers.includes(test)) {
+      console.log("   \033[1;32m✓\033[0m\n");
+
+      i++;
     }
 
-    list = shuffle(next);
+    else {
+      console.log("   \033[1;31m✗\033[0m %s\n", answers[0]);
+
+      // FIXME: If this is the last question, don't swap.
+      const j = (i + 1) + Math.floor((length - (i + 1)) * Math.random());
+      const t = questions[i];
+      questions[i] = questions[j];
+      questions[j] = t;
+
+      mistakes++;
+    }
   }
 
-  if(n === questions) {
-    console.log("\033[1;32mPerfect!\033[0m");
+  const [time_s, time_ns] = process.hrtime(start);
+  const s_per_q = (time_s + time_ns / 1e9) / (length + mistakes);
+  if(mistakes === 0) {
+    console.log("\033[1;32mPerfect!\033[0m (%s s/q)", s_per_q.toFixed(1));
   }
   else {
-    console.log("\033[1;31mYou made mistakes. Keep trying!\033[0m");
+    console.log("\033[1;31mYou made mistakes. Keep trying!\033[0m (%d s/q)", s_per_q.toFixed(1));
   }
 
   rl.close();
@@ -185,7 +193,15 @@ let source;
 switch(path.basename(process.argv[1], ".js")) {
   case "vocabulary": source = VOCABULARY; break;
   case "endings": source = ENDINGS; break;
-  default: throw new Error("Run as vocabulary.js or endings.js");
+}
+for(let i = 2; i < process.argv.length; i++) {
+  switch(process.argv[i]) {
+    case "-v": case "--vocabulary": source = VOCABULARY; break;
+    case "-e": case "--endings": source = ENDINGS; break;
+  }
+}
+if(source === undefined) {
+  throw new Error("Please select the quiz type (--vocabulary or --endings)");
 }
 
 quiz(source, Math.max(source.length >> 2, MIN_QUESTIONS));
