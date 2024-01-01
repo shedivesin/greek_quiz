@@ -166,11 +166,14 @@ async function quiz(list, length) {
     else {
       console.log("   \033[1;31m✗\033[0m %s\n", answers[0]);
 
-      // FIXME: If this is the last question, don't swap.
-      const j = (i + 1) + Math.floor((length - (i + 1)) * Math.random());
-      const t = questions[i];
-      questions[i] = questions[j];
-      questions[j] = t;
+      // Don't swap on the last question, because j=length and we'll swap in an
+      // undefined.
+      if(i + 1 !== length) {
+        const j = (i + 1) + Math.floor((length - (i + 1)) * Math.random());
+        const t = questions[i];
+        questions[i] = questions[j];
+        questions[j] = t;
+      }
 
       mistakes++;
     }
