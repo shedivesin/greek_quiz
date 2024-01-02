@@ -133,7 +133,7 @@ const ENDINGS = [
   ["παιδίων", "genitive plural", "gen plu", "gp"],
   ["παιδίοις", "dative plural", "dat plu", "dp"],
 ];
-const MIN_QUESTIONS = 20;
+const MIN_QUESTIONS = 25;
 
 
 async function quiz(list, length) {
