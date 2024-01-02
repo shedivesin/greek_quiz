@@ -70,7 +70,6 @@ const VOCABULARY = [
 
   // C. W. E. Peckett and A. R. Munday, Thrasymachus.
   // I
-  /*
   ["ἀκούω", "I hear"],
   ["ἀλλά", "but"],
   ["ἄνθρωπος", "man", "human"],
@@ -94,7 +93,7 @@ const VOCABULARY = [
   ["μή", "don't"],
   ["νεκρός", "corpse"],
   ["οἰκία", "house"],
-  ["οἴμοι", "oh dear!", "oh dear me!", "oh no!"],
+  ["οἴμοι", "oh dear!", "oh dear me!", "oh my!", "oh no!"],
   ["οὖν", "therefore"],
   ["παιδίον", "child"],
   ["παρέχω", "I give", "I provide"],
@@ -102,7 +101,6 @@ const VOCABULARY = [
   ["τίς/τί", "who?"],
   ["φωνή", "voice"],
   ["χαίρω", "I rejoice"],
-  */
 ];
 const ENDINGS = [
   // First declension
