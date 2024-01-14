@@ -1,7 +1,5 @@
 import readline from "node:readline/promises";
 
-const CNS = "ns as gs ds np ap gp dp".split(" ", 8);
-
 function deconjugate(conjugations) {
   const map = new Map();
 
@@ -10,28 +8,33 @@ function deconjugate(conjugations) {
 
     for(let i = 0; i < 8; i++) {
       const key = keys[i];
-      if(key === "") { continue; }
+      let value = map.get(key);
+      if(value === undefined) {
+        value = [];
+        map.set(key, value);
+      }
 
-      const value = map.get(key);
-      const answer = g + CNS[i];
-      if(value === undefined) { map.set(key, answer); }
-      else { map.set(key, value + " " + answer); }
+      const c = "nagd"[i & 3]; // case
+      const n = "sp"[i >> 2]; // number
+      value.push(g + c + n);
     }
   }
 
   return map;
 }
 
-function random_in(start, end) {
+// Return a uniformly-distributed random number in [start, end)
+function random(start, end) {
   return start + Math.floor((end - start) * Math.random());
 }
 
+// Knuth shuffle a list (and, optionally, truncate it to length n)
 function shuffle(list, n) {
   list = Array.from(list);
   if(n === undefined || n > list.length) { n = list.length; }
 
   for(let i = 0; i < n; i++) {
-    const j = random_in(i + 1, list.length);
+    const j = random(i + 1, list.length);
     if(i === j) { continue; }
 
     const t = list[i];
@@ -62,13 +65,11 @@ async function quiz(list) {
   let n = 0;
   let mistakes = 0;
 
-  for(const [question, answers_str] of list) {
+  for(const [question, answers] of list) {
     ++n;
     console.log("%s. %s", n.toString().padStart(3), question);
 
-    const answers = answers_str.split(" ");
     let wrong = false;
-
     for(const candidate of await input(rl, "   > ")) {
       const i = answers.indexOf(candidate);
       if(i >= 0) {
@@ -95,6 +96,7 @@ async function quiz(list) {
     console.log("\x1B[1;31m%d%%", Math.round((n - mistakes) * 100 / n));
   }
 
+  // HACK: Remove ^D workaround noted above before closing the listener
   rl.removeAllListeners("close").close();
 }
 
@@ -125,8 +127,6 @@ quiz(
       "f τίς τίνα τίνος τίνι τίνες τίνας τίνων τίσι(ν)",
       "n τί τί τίνος τίνι τίνα τίνα τίνων τίσι(ν)",
       // FIXME: Add numbers? One, two, three, four?
-      // " ἐγώ ἐμέ ἐμοῦ ἐμοί ἡμεῖς ἡμᾶς ἡμῶν ἡμῖν",
-      // " σύ σέ σοῦ σοί ὑμεῖς ὑμᾶς ὑμῶν ὑμῖν",
     ]),
     25,
   ),
