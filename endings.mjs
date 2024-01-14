@@ -1,30 +1,29 @@
 import readline from "node:readline/promises";
 
+const CNS = "ns as gs ds np ap gp dp".split(" ", 8);
+
 function deconjugate(conjugations) {
   const map = new Map();
 
   for(const conjugation of conjugations) {
-    const [g, ns, as, gs, ds, np, ap, gp, dp] = conjugation.split(" ", 9);
+    const [g, ...keys] = conjugation.split(" ", 9);
 
-    for(const [key, cn] of [
-      [ns, "ns"],
-      [as, "as"],
-      [gs, "gs"],
-      [ds, "ds"],
-      [np, "np"],
-      [ap, "ap"],
-      [gp, "gp"],
-      [dp, "dp"],
-    ]) {
+    for(let i = 0; i < 8; i++) {
+      const key = keys[i];
       if(key === "") { continue; }
 
       const value = map.get(key);
-      if(value === undefined) { map.set(key, g + cn); }
-      else { map.set(key, value + " " + g + cn); }
+      const answer = g + CNS[i];
+      if(value === undefined) { map.set(key, answer); }
+      else { map.set(key, value + " " + answer); }
     }
   }
 
   return map;
+}
+
+function random_in(start, end) {
+  return start + Math.floor((end - start) * Math.random());
 }
 
 function shuffle(list, n) {
@@ -32,7 +31,7 @@ function shuffle(list, n) {
   if(n === undefined || n > list.length) { n = list.length; }
 
   for(let i = 0; i < n; i++) {
-    const j = (i + 1) + Math.floor((list.length - (i + 1)) * Math.random());
+    const j = random_in(i + 1, list.length);
     if(i === j) { continue; }
 
     const t = list[i];
@@ -54,10 +53,10 @@ async function input(rl, str) {
 }
 
 async function quiz(list) {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
+  const rl = readline.
+    createInterface({input: process.stdin, output: process.stdout}).
+    // HACK: ^D mid-quiz should quit on a clean line
+    on("close", console.log);
 
   const start = process.hrtime();
   let n = 0;
@@ -96,7 +95,7 @@ async function quiz(list) {
     console.log("\x1B[1;31m%d%%", Math.round((n - mistakes) * 100 / n));
   }
 
-  rl.close();
+  rl.removeAllListeners("close").close();
 }
 
 quiz(
