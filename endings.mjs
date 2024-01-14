@@ -44,6 +44,15 @@ function shuffle(list, n) {
   return list;
 }
 
+async function input(rl, str) {
+  let q;
+
+  do { q = (await rl.question(str)).trim(); }
+  while(q === "");
+
+  return q.split(/\s+/g);
+}
+
 async function quiz(list) {
   const rl = readline.createInterface({
     input: process.stdin,
@@ -61,7 +70,7 @@ async function quiz(list) {
     const answers = answers_str.split(" ");
     let wrong = false;
 
-    for(const candidate of (await rl.question("   > ")).trim().split(/\s+/g)) {
+    for(const candidate of await input(rl, "   > ")) {
       const i = answers.indexOf(candidate);
       if(i >= 0) {
         answers[i] = "\x1B[1;32m" + answers[i] + "\x1B[0m";
