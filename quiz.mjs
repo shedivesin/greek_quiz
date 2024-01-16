@@ -1,6 +1,8 @@
 import readline from "node:readline/promises";
 
 const ANSWERS = {
+  1: "person, case, number|1ns|1as|1gs|1ds|1np|1ap|1gp|1dp".split("|"),
+  2: "person, case, number|2ns|2as|2gs|2ds|2np|2ap|2gp|2dp".split("|"),
   f: "gender, case, number|fns|fas|fgs|fds|fnp|fap|fgp|fdp".split("|"),
   m: "gender, case, number|mns|mas|mgs|mds|mnp|map|mgp|mdp".split("|"),
   n: "gender, case, number|nns|nas|ngs|nds|nnp|nap|ngp|ndp".split("|"),
@@ -16,14 +18,16 @@ function questions(tables) {
     if(answers === undefined) {
       throw new Error("Invalid table type " + words[0]);
     }
+
     // NB: Words and answers both have an extra value at the beginning, but
     // should match from the second item on.
-    if(words.length !== answers.length) {
+    const n = words.length;
+    if(n !== answers.length) {
       throw new Error("Invalid table " + table);
     }
 
     const hint = answers[0];
-    for(let i = 1; i < words.length; i++) {
+    for(let i = 1; i < n; i++) {
       const word = words[i] + " (" + hint + ")";
       const answer = answers[i];
 
@@ -143,5 +147,18 @@ quiz(shuffle(questions([
   "f τίς τίνα τίνος τίνι τίνες τίνας τίνων τίσι(ν)",
   "n τί τί τίνος τίνι τίνα τίνα τίνων τίσι(ν)",
   // FIXME: Numbers
-  // FIXME: Pronouns
+  // "mn εἷς ἕνα ἑνός ἑνί",
+  // "fn μία μίαν μιᾶς μιᾷ",
+  // "nn ἑν ἑν ἑνός ἑνί",
+  // "mn δύο δύο δυοῖν δυοῖν",
+  // "fn δύο ύο δυοῖν δυοῖν",
+  // "nn δύο δύο δυοῖν δυοῖν",
+  // "mn τρεῖς τρεῖς τριῶν τρισί(ν)",
+  // "fn τρεῖς τρεῖς τριῶν τρισί(ν)",
+  // "nn τρία τρία τριῶν τρισί(ν)",
+  // "mn τέτταρες τέτταρας τεττάρων τέτταρσι(ν)",
+  // "fn τέτταρες τέτταρας τεττάρων τέτταρσι(ν)",
+  // "nn τέτταρα τέτταρα τεττάρων τέτταρσι(ν)",
+  "1 ἐγώ ἐμέ ἐμοῦ ἐμοί ἡμεῖς ἡμᾶς ἡμῶν ἡμῖν",
+  "2 σύ σέ σοῦ σοί ὑμεῖς ὑμᾶς ὑμῶν ὑμῖν",
 ])).slice(0, 25));
