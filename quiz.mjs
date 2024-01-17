@@ -7,6 +7,9 @@ const ANSWERS = {
   m: "gender, case, number|mns|mas|mgs|mds|mnp|map|mgp|mdp".split("|"),
   n: "gender, case, number|nns|nas|ngs|nds|nnp|nap|ngp|ndp".split("|"),
   v: "person, number|1s|2s|3s|1p|2p|3p".split("|"),
+  x: "gender, case|fn|fa|fg|fd".split("|"),
+  y: "gender, case|mn|ma|mg|md".split("|"),
+  z: "gender, case|nn|na|ng|nd".split("|"),
 };
 
 function questions(tables) {
@@ -74,10 +77,10 @@ async function quiz(questions) {
   // HACK: ^D mid-quiz should quit on a clean line
   rl.on("close", console.log);
 
-  let ok = 0;
-  let fail = 0;
+  let right = 0;
+  let wrong = 0;
   for(const [question, answers] of questions) {
-    console.log("%s. %s", (ok + fail + 1).toString().padStart(3), question);
+    console.log("%s. %s", (right + wrong + 1).toString().padStart(3), question);
 
     // FIXME: Make a copy of answers because we will be modifying it.
     let correct = true;
@@ -106,16 +109,12 @@ async function quiz(questions) {
       answers.join(" "),
     );
 
-    if(correct) { ok++; }
-    else { fail++; }
+    if(correct) { right++; }
+    else { wrong++; }
   }
 
-  if(fail === 0) {
-    console.log("\x1B[1;32m100%%\x1B[0m");
-  }
-  else {
-    console.log("\x1B[1;31m%d%%", Math.round(ok * 100 / (ok + fail)));
-  }
+  const score = Math.round(right * 100 / (right + wrong));
+  console.log("\x1B[1;%dm%d%%", (score >= 100)? 32: ((score >= 80)? 33: 31), score);
 
   // HACK: Remove ^D workaround noted above before closing the listener
   rl.removeAllListeners("close");
@@ -146,19 +145,18 @@ quiz(shuffle(questions([
   "m τίς τίνα τίνος τίνι τίνες τίνας τίνων τίσι(ν)",
   "f τίς τίνα τίνος τίνι τίνες τίνας τίνων τίσι(ν)",
   "n τί τί τίνος τίνι τίνα τίνα τίνων τίσι(ν)",
-  // FIXME: Numbers
-  // "mn εἷς ἕνα ἑνός ἑνί",
-  // "fn μία μίαν μιᾶς μιᾷ",
-  // "nn ἑν ἑν ἑνός ἑνί",
-  // "mn δύο δύο δυοῖν δυοῖν",
-  // "fn δύο ύο δυοῖν δυοῖν",
-  // "nn δύο δύο δυοῖν δυοῖν",
-  // "mn τρεῖς τρεῖς τριῶν τρισί(ν)",
-  // "fn τρεῖς τρεῖς τριῶν τρισί(ν)",
-  // "nn τρία τρία τριῶν τρισί(ν)",
-  // "mn τέτταρες τέτταρας τεττάρων τέτταρσι(ν)",
-  // "fn τέτταρες τέτταρας τεττάρων τέτταρσι(ν)",
-  // "nn τέτταρα τέτταρα τεττάρων τέτταρσι(ν)",
+  "y εἷς ἕνα ἑνός ἑνί",
+  "x μία μίαν μιᾶς μιᾷ",
+  "z ἑν ἑν ἑνός ἑνί",
+  "y δύο δύο δυοῖν δυοῖν",
+  "x δύο δύο δυοῖν δυοῖν",
+  "z δύο δύο δυοῖν δυοῖν",
+  "y τρεῖς τρεῖς τριῶν τρισί(ν)",
+  "x τρεῖς τρεῖς τριῶν τρισί(ν)",
+  "z τρία τρία τριῶν τρισί(ν)",
+  "y τέτταρες τέτταρας τεττάρων τέτταρσι(ν)",
+  "x τέτταρες τέτταρας τεττάρων τέτταρσι(ν)",
+  "z τέτταρα τέτταρα τεττάρων τέτταρσι(ν)",
   "1 ἐγώ ἐμέ ἐμοῦ ἐμοί ἡμεῖς ἡμᾶς ἡμῶν ἡμῖν",
   "2 σύ σέ σοῦ σοί ὑμεῖς ὑμᾶς ὑμῶν ὑμῖν",
 ])).slice(0, 25));
