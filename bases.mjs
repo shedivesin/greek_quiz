@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import readline from "node:readline/promises";
 
 const LEXICON = [
@@ -83,6 +84,33 @@ const LEXICON = [
   ["ὑπό", "under"],
   ["μετα/φορε/", "carry across", "transfer"],
   ["χώρα/, ἡ", "space", "land"],
+
+  // Lexis Reading 3 (p. 89)
+  ["αἰεί", "always"],
+  ["ἀπορε/", "be at a loss"],
+  ["ἀνά/βασι, ἡ", "going up", "ascent"],
+  ["κατά/βασι, ἡ", "going down", "descent"],
+  ["γάρ", "for"],
+  ["γνωπιδ/", "recognize"],
+  ["διά", "through", "on account of", "thoroughly"],
+  ["ϝεργαδ/", "work"],
+  ["εὖ", "well"],
+  ["θησαυριδ/", "store"],
+  ["θύρα/, ἡ", "door"],
+  ["ἱδ/", "sit down"],
+  ["κεραϊδ/", "plunder"],
+  ["κληϊ/", "lock"],
+  ["κόμα/, ἡ", "hair"],
+  ["κομιδ/", "carry away", "bring back"],
+  ["κτενιδ/", "comb"],
+  ["ὁδό/, ἡ", "road", "way"],
+  ["συν/οικιδ/", "join in one house"],
+  ["ὀνοματ/", "name", "call"],
+  ["ὁπλίτα/, ὁ", "hoplite"],
+  ["ὁρτά/, ἡ", "feast", "festival", "holiday", "celebration"],
+  ["ὁρταδ/", "celebrate"],
+  ["πάγα/, ἡ", "trap"],
+  ["κατα/σκευαδ/", "pack down", "prepare"],
 ];
 
 // Return a uniformly-distributed random number in [start, end)
@@ -120,10 +148,7 @@ async function quiz(questions) {
   for(const [question, ...answers] of questions) {
     console.log("%s. %s", (right + wrong + 1).toString().padStart(2), question);
 
-    let candidate;
-    do { candidate = (await rl.question("  > ")).replace(/\s+/g, " ").trim(); }
-    while(candidate === "");
-
+    const candidate = (await rl.question("  > ")).trim().replace(/\s+/g, " ");
     if(answers.includes(candidate)) {
       right++;
       console.log(
