@@ -28,7 +28,7 @@ const LEXICON = [
   ["κατά", "down"],
   ["κεφαλά/, ἡ", "head"],
   ["λεγ/", "speak", "say"],
-  ["λόγο/, ὁ", "statement", "argument"],
+  ["λόγο/, ὁ", "statement", "argument", "word"],
   ["λυ/", "loosen", "release"],
   ["λῦκο/, ὁ", "wolf"],
   ["μεθυ", "get drunk"],
@@ -49,7 +49,7 @@ const LEXICON = [
   ["πυραμίδ/, ἡ", "cake", "pyramid"],
   ["ῥε/", "flow"],
   ["ταμία/, ὁ", "housekeeper"],
-  ["ὑπέρ", "over"],
+  ["ὑπέρ", "over", "above"],
   ["ἐπι/τελε/", "complete", "finish"],
   ["φερ/", "bear", "carry"],
   ["φυλακό/, ὁ", "guard"],
@@ -60,9 +60,9 @@ const LEXICON = [
   ["ἄνθρωπο/, ἡ or ὁ", "person", "human"],
   ["βίο/, ὁ", "life", "way of life"],
   ["γά/, ἡ", "earth", "ground"],
-  ["δέκα", "ten"],
+  ["δέκα", "ten", "10"],
   ["ἑλκ/", "pull", "drag"],
-  ["ἕξ", "six"],
+  ["ἕξ", "six", "6"],
   ["ἐρδ/", "do"],
   ["εὑθηνε/", "make flourish"],
   ["κακότητ/, ἡ", "badness"],
@@ -70,7 +70,7 @@ const LEXICON = [
   ["λίθο/, ὁ", "stone", "rock"],
   ["λιθοτομία/, ἡ", "quarry", "stone-quarry"],
   ["μηχανά/, ἡ", "device"],
-  ["μυριάδ/, ἡ", "ten thousand"],
+  ["μυριάδ/, ἡ", "ten thousand", "10000"],
   ["νήσο/, ἡ", "island"],
   ["οἰκοδόμο/, ὁ", "builder"],
   ["δια/πεμπ/", "send far and wide"],
@@ -104,7 +104,7 @@ const LEXICON = [
   ["κομιδ/", "carry away", "bring back"],
   ["κτενιδ/", "comb"],
   ["ὁδό/, ἡ", "road", "way"],
-  ["συν/οικιδ/", "join in one house"],
+  ["συν/οικιδ/", "join in one house", "join under one roof"],
   ["ὀνοματ/", "name", "call"],
   ["ὁπλίτα/, ὁ", "hoplite"],
   ["ὁρτά/, ἡ", "feast", "festival", "holiday", "celebration"],
@@ -112,6 +112,8 @@ const LEXICON = [
   ["πάγα/, ἡ", "trap"],
   ["κατα/σκευαδ/", "pack down", "prepare"],
 ];
+
+const NUMBER = (process.argv[2] ?? "25")|0;
 
 // Return a uniformly-distributed random number in [start, end)
 function random(start, end) {
@@ -174,4 +176,4 @@ async function quiz(questions) {
   rl.close();
 }
 
-quiz(shuffle(LEXICON).slice(0, 25));
+quiz(shuffle(LEXICON).slice(0, NUMBER));
